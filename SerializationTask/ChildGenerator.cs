@@ -6,9 +6,9 @@ namespace SerializationTask
 {
     public class ChildGenerator : IChildGenerator
     {
-        private readonly IntegerIdGenerator _idGenerator;
+        private readonly IIntegerIdGenerator _idGenerator;
 
-        public ChildGenerator(IntegerIdGenerator idGenerator)
+        public ChildGenerator(IIntegerIdGenerator idGenerator)
         {
             _idGenerator = idGenerator;
         }
