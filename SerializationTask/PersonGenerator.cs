@@ -1,4 +1,5 @@
 ﻿using Faker;
+using Faker.Extensions;
 using SerializationTask.Abstractions;
 using SerializationTask.Models;
 
@@ -15,7 +16,6 @@ namespace SerializationTask
         {
             _idGenerator = idGenerator;
             _childGenerator = childGenerator;
-
         }
 
         public Person Generate()
@@ -30,24 +30,23 @@ namespace SerializationTask
                 TransportId = Guid.NewGuid(),
                 Gender = Faker.Enum.Random<Gender>(),
                 IsMarred = Faker.Boolean.Random(),
-                Phones = new[] { Phone.Number() },
-                SequenceId = 0,
-                CreditCardNumbers = new[] { Faker.Finance.Isin() },
+                Phones = RandomNumber.Next(1, 3).Times<string>(p => Phone.Number()).ToArray(),
+                CreditCardNumbers = RandomNumber.Next(1, 4).Times<string>(p => Faker.Finance.Isin()).ToArray(),
                 Salary = RandomNumber.Next(20000, 400000),
-                Children = new[]
-                {
-                    _childGenerator.Generate()
-                }
+                Children = _childGenerator.GenerateNext(RandomNumber.Next(0, 5)).ToArray()
             };
         }
 
         public IEnumerable<Person> GenerateNext(int count)
         {
-            Person[] persons = new Person[count];
+            var persons = new Person[count];
 
             for (int i = 0; i < count; i++)
             {
-                persons[i] = Generate();
+                var person = Generate();
+                person.SequenceId = i;
+
+                persons[i] = person;
             }
 
             return persons;

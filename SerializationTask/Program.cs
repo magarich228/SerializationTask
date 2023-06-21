@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SerializationTask;
 using SerializationTask.Models;
 
@@ -18,7 +19,14 @@ static async Task WritePersons(string path)
     var personGenerator = new PersonGenerator(integerIdGenerator, childGenerator);
 
     var persons = personGenerator.GenerateNext(1000);
-    var personsJson = JsonConvert.SerializeObject(persons, Formatting.Indented);
+    var personsJson = JsonConvert.SerializeObject(persons, new JsonSerializerSettings
+    {
+        Formatting = Formatting.Indented,
+        ContractResolver = new DefaultContractResolver
+        {
+            NamingStrategy = new CamelCaseNamingStrategy() //lowerCamelCase
+        }
+    });
 
     using var sw = new StreamWriter(File.Create(path));
 

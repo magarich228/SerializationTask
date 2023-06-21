@@ -27,7 +27,7 @@ namespace SerializationTask
 
         public IEnumerable<Child> GenerateNext(int count)
         {
-            Child[] children = new Child[count];
+            var children = new Child[count];
 
             for (int i = 0; i < count; i++)
             {
