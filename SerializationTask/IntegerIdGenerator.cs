@@ -1,6 +1,8 @@
-﻿namespace SerializationTask
+﻿using SerializationTask.Abstractions;
+
+namespace SerializationTask
 {
-    public class IntegerIdGenerator
+    public class IntegerIdGenerator : IIntegerIdGenerator
     {
         private int _id;
 

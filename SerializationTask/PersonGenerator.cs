@@ -6,12 +6,12 @@ namespace SerializationTask
 {
     public class PersonGenerator : IPersonGenerator
     {
-        private readonly IntegerIdGenerator _idGenerator;
-        private readonly ChildGenerator _childGenerator;
+        private readonly IIntegerIdGenerator _idGenerator;
+        private readonly IChildGenerator _childGenerator;
 
         public PersonGenerator(
-            IntegerIdGenerator idGenerator, 
-            ChildGenerator childGenerator)
+            IIntegerIdGenerator idGenerator, 
+            IChildGenerator childGenerator)
         {
             _idGenerator = idGenerator;
             _childGenerator = childGenerator;
